@@ -103,6 +103,27 @@ app.route('/api/users')
     });
 
 
+    app.put('/api/topics/:id', (req, res) => {
+        console.log('lets put it in!!! ')
+        var topicId = parseInt(req.params.id);
+        Topic.findById(topicId)
+          .then((topics) => {
+            console.log('topic stff',req.params.id)
+            Topic.update({
+                name:req.body.name
+            },{
+                where: {
+                  id:req.params.id
+                }
+            }) 
+
+            .then((topics) => {
+                console.log('we posted topic')
+                res.json(topics);
+            })
+        
+        })
+      });
 
     app.get('*', (req, res) => {
         res.sendFile('index.html', {
