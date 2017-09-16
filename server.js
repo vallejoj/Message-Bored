@@ -1,10 +1,10 @@
 const path = require('path');
 const express = require('express');
 
-const bp = require('body-parser');
+const app = express();
 const db = require ('./models');
 const PORT = process.env.PORT || 9000;
-const app = express();
+const bp = require('body-parser');
 app.use(bp.urlencoded());
 
 app.use(express.static('public'));
