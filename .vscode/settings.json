@@ -1,0 +1,5 @@
+{
+     // Enables parameter hints
+     "editor.parameterHints": false,
+     
+}
