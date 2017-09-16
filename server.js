@@ -13,14 +13,22 @@ app.use(bp.urlencoded());
 
 app.use(express.static('public'));
 
-app.get('*', (req, res) => {
-    res.sendFile('index.html', {
-        root: path.join(__dirname, '/public')
+
+app.get('/api/users/:id', (req,res)=>{
+   
+    var userID = parseInt(req.params.id)
+    User.findById(userID)
+    .then((users) => {
+        res.json(users); 
+    })
+    .catch((err) => {
+        console.log(err);
     });
 });
 
 app.route('/api/users')
     .get((req, res) => {
+        console.log('trouble')
         User.findAll()
             .then((users) => {
                 res.json(users); 
@@ -44,7 +52,7 @@ app.route('/api/users')
     });
 
 
-    app.route('/api/topic')
+    app.route('/api/topics')
     .get((req, res) => {
         Topic.findAll()
             .then((topics) => {
@@ -69,7 +77,7 @@ app.route('/api/users')
     });
 
 
-    app.route('/api/message')
+    app.route('/api/messages')
     .get((req, res) => {
         Message.findAll()
             .then((messages) => {
@@ -96,8 +104,12 @@ app.route('/api/users')
 
 
 
-
-
+    app.get('*', (req, res) => {
+        res.sendFile('index.html', {
+            root: path.join(__dirname, '/public')
+        });
+    });
+    
 
 
 
