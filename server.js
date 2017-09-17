@@ -125,6 +125,21 @@ app.route('/api/users')
         })
       });
 
+      app.get('/api/messages/latest',(req,res) =>{
+          console.log('testing get')
+          Message.findAll({
+              include: [
+                  {
+                     model: Topic,
+                     as: 'topic'
+                 }
+                ]
+          })
+      })
+
+
+
+
     app.get('*', (req, res) => {
         res.sendFile('index.html', {
             root: path.join(__dirname, '/public')
@@ -136,6 +151,8 @@ app.route('/api/users')
 
 
 const server = app.listen(PORT, () => {
-    db.sequelize.sync()
+    db.sequelize.sync({
+        force:true
+    })
     console.log(`Running on ${PORT}`);
 });

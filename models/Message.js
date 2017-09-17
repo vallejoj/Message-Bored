@@ -11,7 +11,8 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: {
             name: 'topic_id',
             allowNull: false
-          }
+          },
+          as:'Topic'
         });
         Message.belongsTo(models.User, {
           as: 'Author',
