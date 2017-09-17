@@ -4,9 +4,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
+  }) 
+    
+      Message.associate = function(models) {
         Message.belongsTo(models.Topic, {
           foreignKey: {
             name: 'topic_id',
@@ -22,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
       }
-    }
-  });
+    
   return Message;
 };

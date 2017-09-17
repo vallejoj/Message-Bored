@@ -5,9 +5,9 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
       allowNull: false
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
+  });
+    
+    Topic.associate = function(models) {
         Topic.belongsTo(models.User, {
           as: 'Creator',
           foreignKey: {
@@ -22,8 +22,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false
           }
         });
-      }
-    }
-  });
+      };
+    
   return Topic;
 };

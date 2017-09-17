@@ -9,14 +9,15 @@ const app = express();
 const db = require('./models');
 const PORT = process.env.PORT || 9000;
 const bp = require('body-parser');
-app.use(bp.urlencoded());
+app.use(bp.urlencoded({
+    extended: true
+}));
 
 app.use(express.static('public'));
 
 
 app.get('/api/users/:id', (req,res)=>{
-   
-    var userID = parseInt(req.params.id)
+   var userID = parseInt(req.params.id)
     User.findById(userID)
     .then((users) => {
         res.json(users); 
@@ -29,7 +30,14 @@ app.get('/api/users/:id', (req,res)=>{
 app.route('/api/users')
     .get((req, res) => {
         console.log('trouble')
-        User.findAll()
+        User.findAll({
+            include: [
+                {
+                  model: Topic,
+                  as: "Topics"
+                }
+              ]
+        })
             .then((users) => {
                 res.json(users); 
             })
@@ -41,14 +49,19 @@ app.route('/api/users')
         console.log('posting', req.body)
         User.create({
                 name: req.body.name
-            })
-                .then((users) => {
-                    console.log('we posted name')
-                    res.json(users);
-                })
-            .catch((err) => {
-                console.log(err)
-            });
+        })
+        .then(() => {
+           return User.findAll()
+         })  
+        .then((users) =>{
+            console.log("where is my zero", users)
+            res.json({  
+                name: req.body.name 
+              });
+         })
+        .catch((err) => {
+            console.log(err)
+        });
     });
 
 
@@ -65,7 +78,8 @@ app.route('/api/users')
     .post((req, res) => {
         console.log('posting', req.body)
         Topic.create({
-                name: req.body.name
+                name: req.body.name,
+                created_by: req.body.created_by
             })
                 .then((topics) => {
                     console.log('we posted topic')
@@ -90,8 +104,17 @@ app.route('/api/users')
     })
     .post((req, res) => {
         console.log('posting', req.body)
+        let body = req.body.body
+        console.log('this is the bodu',body)
+      
+        let author_id = parseInt(req.body.author_id)
+        let topic_id = parseInt(req.body.topic_id)
+        console.log('OUR author id',author_id)
+        console.log('OUR TOPICS', topic_id)
         Message.create({
-                body: req.body.body
+                body,
+                topic_id,
+               author_id
             })
                 .then((messages) => {
                     console.log('we posted messages')
@@ -131,11 +154,21 @@ app.route('/api/users')
               include: [
                   {
                      model: Topic,
-                     as: 'topic'
+                     as: 'Topic'
                  }
-                ]
+                ],
+               order:[
+                  [ 'createdAt','DESC']
+               ]
           })
-      })
+          .then((users) => {
+              console.log("here are", users)
+            res.json(users); 
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+      });
 
 
 
@@ -152,7 +185,8 @@ app.route('/api/users')
 
 const server = app.listen(PORT, () => {
     db.sequelize.sync({
-        force:true
+       
+
     })
     console.log(`Running on ${PORT}`);
 });

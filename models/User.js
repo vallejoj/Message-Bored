@@ -5,9 +5,9 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
       allowNull: false
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
+  })
+  
+      User.associate = function(models) {
         User.hasMany(models.Topic, {
           foreignKey: {
             name: 'created_by',
@@ -22,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
       }
-    }
-  });
+    
   return User;
 };
