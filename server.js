@@ -9,7 +9,7 @@ const app = express();
 const db = require('./models');
 const PORT = process.env.PORT || 9000;
 const bp = require('body-parser');
-app.use(bp.urlencoded({
+app.use(bp.json({
     extended: true
 }));
 
@@ -51,14 +51,11 @@ app.route('/api/users')
                 name: req.body.name
         })
         .then(() => {
-           return User.findAll()
+            User.findAll()
+            .then((users)=>{
+                res.json(users);
+            })
          })  
-        .then((users) =>{
-            console.log("where is my zero", users)
-            res.json({  
-                name: req.body.name 
-              });
-         })
         .catch((err) => {
             console.log(err)
         });
@@ -106,7 +103,6 @@ app.route('/api/users')
         console.log('posting', req.body)
         let body = req.body.body
         console.log('this is the bodu',body)
-      
         let author_id = parseInt(req.body.author_id)
         let topic_id = parseInt(req.body.topic_id)
         console.log('OUR author id',author_id)

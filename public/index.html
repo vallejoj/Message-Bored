@@ -5,42 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Message-Bored</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+    <link href="./css/app.css" rel="stylesheet" media="screen" />
     <base href="/">
 </head>
 <body ng-app="myApp">
-
-    <h1>hello world</h1>
-       <div ng-controller="UserController">
-            <div ng-repeat="user in users">
-                  <h4>{{ user.name }}</h4>
-      
-             </div>
-          <input type="text" ng-model="tempUser.name">  
-        
-          <button ng-click="addUsers()">Add User</button>
-          
-       </div>
-       <div ng-controller="MessageController">
-            <div ng-repeat="message in messages">
-                  <h4>{{ message.name }}</h4>
-      
-             </div>
-          <input type="text" ng-model="tempMessage.body">  
-        
-          <button ng-click="addMessages()">Add Message</button>
-          
-       </div>
-          
-                         
+        <section class="section">
+                <div class="container">
+                    <section class="hero is-small is-dark is-bold">
+                        <div class="hero-body">
+                          <div class="container">
+                            <h1 class="title">
+                              Message-Bored
+                            </h1>
+                            <h2 class="subtitle">
+                             The Board for you! 
+                            </h2>
+                          </div>
+                        </div>
+                      </section>
+        <a href="/">Home</a> <br>
+        <a href="/post">Post</a>
+       
+        <ng-view>
+                
+              </ng-view>
+   
+    
+</div>
+</section>                   
          
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js" type="text/javascript"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js" type="text/javascript"></script>
+   
     <script src="./js/myApp.js" type="text/javascript"></script>
+    <script src="./js/UserServices.js" type="text/javascript"></script>
     <script src="./js/UserController.js" type="text/javascript"></script>
+    <script src="./js/MessageServices.js" type="text/javascript"></script>
     <script src="./js/MessageController.js" type="text/javascript"></script>
-    <script src="./js/UserProvider.js" type="text/javascript"></script>
-    <script src="./js/MessageProvider.js" type="text/javascript"></script>
+    <script src="./js/TopicServices.js" type="text/javascript"></script>
+    <script src="./js/TopicController.js" type="text/javascript"></script>
+    <script src="./js/LoginServices.js" type="text/javascript"></script>
+    <script src="./js/LoginController.js" type="text/javascript"></script>
     
 </body>
 </html>

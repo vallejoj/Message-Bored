@@ -2,10 +2,10 @@ angular.module('myApp')
 
 
 .controller('MessageController',
-['$scope', 'Messages', function($scope, Messages) {
+['$scope', 'MessagesService', function($scope, MessagesService) {
  
   $scope.messages= [];
-  Messages.getMessages()
+  MessagesService.getMessages()
   .then((messages) => {
     $scope.messages = messages;
   })
@@ -15,8 +15,14 @@ angular.module('myApp')
     let newMessage ={
       body: $scope.tempMessage.body,
     };
-    console.log('hey look',Messages)
-    Messages.addMessages(newMessage)
+
+    MessagesService.addMessages(newMessage)
+    
+    .then((messages) => {
+      console.log("handling promise and controller", messages);
+      
+      $scope.messages = messages.data
+    });
   }
 
 }]);

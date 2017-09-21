@@ -8,8 +8,16 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     $locationProvider
     $routeProvider
     .when('/',{
-        templateUrl: 'home.html',
-        controller: ['UserController','MessageController']
+        templateUrl: '../home.html',
+        controller: 'LoginController'
+    })
+    .when('/post',{
+        templateUrl: '../topic.html',
+        controller: 'TopicController'
+    })
+    .when('/message',{
+        templateUrl: '../message.html',
+        controller: 'MessageController'
     })
     .otherwise({
         template: '<h1><center>SUCK IT TREBEK</center></h1>'

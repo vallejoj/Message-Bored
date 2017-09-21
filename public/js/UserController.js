@@ -2,12 +2,13 @@ angular.module('myApp')
 
 
 .controller('UserController',
-['$scope', 'Users', function($scope, Users) {
+['$scope', 'UsersService', function($scope, UsersService) {
  
   $scope.users = [];
-  Users.getUsers()
+  UsersService.getUsers()
   .then((users) => {
     $scope.users = users;
+    console.log('useo',users)
   })
 
   
@@ -15,9 +16,14 @@ angular.module('myApp')
     let newUser ={
       name: $scope.tempUser.name,
     };
-   
+    
     console.log('hey look whooo',newUser)
-    Users.addUsers(newUser)
+    UsersService.addUsers(newUser)
+    .then((users) => {
+      console.log("handling promise and controller", users);
+      
+      $scope.users = users.data
+    });
   }
 
 }]);

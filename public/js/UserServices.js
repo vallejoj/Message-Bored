@@ -1,10 +1,11 @@
 angular.module('myApp')
-.provider('Users', function() {
+.service('UsersService', ['$http' ,
+function($http) {
   this.users = [];
 
 
 
-  this.$get = ['$http', function($http) {
+   
     return {
       getUsers: function() {
         return $http.get('/api/users')
@@ -14,15 +15,8 @@ angular.module('myApp')
         });
       },
       addUsers: function(userData) {
-        return $http.post('/api/users', userData )
-        .then((users) => {
-          console.log("users", users);
-          return URLSearchParams.data;
-        });
+        console.log("services", userData)
+        return $http.post('/api/users', userData )  
       }
-    } 
-  }]
-
-
-  
-});
+    }  
+}]);
