@@ -10,6 +10,7 @@ angular.module('myApp')
      let username = $scope.pendingUser.name;
      LoginService.loginUser(username);
      $scope.loggedIn = true;
-     scope.pendingUser.name = '';
+     console.log('$scope.pendingUser.name',$scope.pendingUser.name)
+     $scope.pendingUser.name = '';
  }
 }]);

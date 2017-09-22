@@ -3,9 +3,6 @@ angular.module('myApp')
 function($http) {
   this.messages = [];
 
-
-
-
     return {
       getMessages: function() {
         return $http.get('/api/messages')

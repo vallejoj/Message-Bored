@@ -27,9 +27,25 @@ app.get('/api/users/:id', (req,res)=>{
     });
 });
 
+app.get('/api/users/Joshi', (req,res)=>{
+    console.log("looking for name", req.body.name)
+     User.findAll({
+        where: {
+          name: req.body.name
+        }
+      })
+      .then((users) => {
+        res.json(users); 
+    })
+     .catch((err) => {
+         console.log(err);
+     });
+ });
+ 
+
 app.route('/api/users')
     .get((req, res) => {
-        console.log('trouble')
+        console.log('get request API/users')
         User.findAll({
             include: [
                 {

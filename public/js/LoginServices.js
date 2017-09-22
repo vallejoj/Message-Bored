@@ -3,10 +3,13 @@ angular.module('myApp')
 function($http) {
     return {
       loginUser: function(data) {
+          console.log("data", data)
           return $http.get('/api/users' + data)
-          .then(users => {
+          .then(user => {
               if(user !== null){
+                console.log("look at these users,", user)
                   localStorage.setItem('username', user.data.username)
+
               }
           })
       }

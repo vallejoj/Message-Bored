@@ -13,7 +13,8 @@ angular.module('myApp')
   
   $scope.addTopics = function() {
     let newTopic ={
-      body: $scope.tempTopic.body,
+      name: $scope.tempTopic.name,
+      createdBy: localStorage.username
     };
 
     
