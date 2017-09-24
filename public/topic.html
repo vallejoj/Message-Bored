@@ -3,7 +3,9 @@
  
            <div ng-controller="TopicController">
             <div ng-repeat="topic in topics">
-                  <h4>{{ topic.name }}</h4>
+            
+                  <a href="/message/"+topic.id ng-click="setTopicId(topic.id)">
+                        {{topic.name}}</a>
       
              </div>
           <input type="text" ng-model="tempTopic.name">  

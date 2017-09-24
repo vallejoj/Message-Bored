@@ -8,7 +8,6 @@ angular.module('myApp')
   UsersService.getUsers()
   .then((users) => {
     $scope.users = users;
-    console.log('useo',users)
   })
 
   

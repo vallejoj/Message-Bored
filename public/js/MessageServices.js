@@ -4,10 +4,9 @@ function($http) {
   this.messages = [];
 
     return {
-      getMessages: function() {
+      getMessages: function(data) {
         return $http.get('/api/messages')
         .then((messages) => {
-          console.log(messages);
           return messages.data;
         });
       },

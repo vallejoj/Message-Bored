@@ -27,20 +27,22 @@ app.get('/api/users/:id', (req,res)=>{
     });
 });
 
-app.get('/api/users/Joshi', (req,res)=>{
-    console.log("looking for name", req.body.name)
-     User.findAll({
-        where: {
-          name: req.body.name
-        }
-      })
-      .then((users) => {
-        res.json(users); 
-    })
-     .catch((err) => {
-         console.log(err);
-     });
- });
+app.get('/api/users/login/:name', (req,res)=>{
+    console.log("loginz", req.params)
+  User.findOne({
+    where: {
+      name: req.params.name
+    }
+  })
+  .then(users => {
+    console.log("zed", users)
+    let user = {
+      username: users.id
+    };
+    console.log("whee", req.body)
+    res.json(user);
+  });
+});
  
 
 app.route('/api/users')
@@ -103,7 +105,24 @@ app.route('/api/users')
             });
     });
 
+    app.route('/api/messages/:topic_id')
+    .get((req, res) => {
+        console.log("REQ",req.params.topic_id)
+        Message.findAll({
+            where: {
+              topic_id: req.params.topic_id
+            }
+          })
+            .then((messages) => {
+                res.json(messages);
+                
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    })
 
+ 
     app.route('/api/messages')
     .get((req, res) => {
         Message.findAll()
@@ -116,13 +135,10 @@ app.route('/api/users')
             });
     })
     .post((req, res) => {
-        console.log('posting', req.body)
         let body = req.body.body
-        console.log('this is the bodu',body)
         let author_id = parseInt(req.body.author_id)
         let topic_id = parseInt(req.body.topic_id)
-        console.log('OUR author id',author_id)
-        console.log('OUR TOPICS', topic_id)
+       
         Message.create({
                 body,
                 topic_id,

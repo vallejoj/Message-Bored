@@ -19,6 +19,10 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         templateUrl: '../message.html',
         controller: 'MessageController'
     })
+    .when('/user',{
+        templateUrl: '../user.html',
+        controller: 'UserController'
+    })
     .otherwise({
         template: '<h1><center>SUCK IT TREBEK</center></h1>'
       });
