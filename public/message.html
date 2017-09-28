@@ -1,15 +1,16 @@
 <div>
 
-        <div ng-controller="MessageController">
-                <div ng-repeat="messag in messages" ng-model = "tempMess"></div>
-                      <h4>{{ message.name }}</h4>
-          
-                 </div>
-              <input type="text" ng-model="tempMessage.body">  
+      
+                <div ng-repeat="message in messages" >
+                      <h4>{{ message.body }}</h4>
             
+                </div>
+              
+             
+              <input type="text" ng-model="tempMessage.body">  
+            <button ng-click="setTopicIdAndGetMessage(5)">TEST ME</button>
               <button ng-click="addMessages()">Add Message</button>
               
-           </div>
+ </div>
 
 
-</div>

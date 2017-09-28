@@ -5,13 +5,15 @@ angular.module('myApp')
 ['$scope', 'TopicsService', function($scope, TopicsService) {
  
   $scope.topics= [];
-  $scope.topicsMessage= []
+  $scope.messages  = [];
+  $scope.tempTopicId;
+  
   TopicsService.getTopics()
   .then((topics) => {
     $scope.topics = topics;
   })
 
- 
+
   $scope.addTopics = function() {
     let newTopic ={
       name: $scope.tempTopic.name,
@@ -25,11 +27,39 @@ angular.module('myApp')
     });
   }
 
+//this sets topic id and then gets messages. 
+  $scope.setTopicIdAndGetMessage = function(topicState) {
 
-  $scope.setTopicId = function(topicState) {
-    console.log("servicesss", topicState)
-    TopicsService.setTopicId(topicState)
+    console.log("topicState:", topicState)
+    $scope.tempTopicId = topicState
+  
+  
+  TopicsService. setTopicIdAndGetMessage(topicState)
+ 
+  .then((messages) => {
    
-  };
+    $scope.messages = messages
+   
+    console.log("scope 2", $scope.messages)
+    
+  })
+};
+
+  $scope.addMessages = function() {
+    let newMessage ={
+      body: $scope.tempMessage.body,
+      topic_id: 5,
+      author_id: localStorage.getItem('username')
+    };
+
+    TopicsService.addMessages(newMessage)
+    .then((messages) => {
+      console.log("handling promise and controller",$scope.messages);
+      $scope.messages = [...$scope.messages, messages.data]
+      console.log("part 2", $scope.messages);
+    });
+  }
+
+  
 
 }]);

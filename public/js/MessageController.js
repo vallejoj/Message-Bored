@@ -5,10 +5,13 @@ angular.module('myApp')
 ['$scope', 'MessagesService', 'TopicsService', function($scope, MessagesService, TopicsService) {
  
   $scope.messages= [];
-  MessagesService.getMessages()
-  .then((messages) => {
-    $scope.messages = messages;
-  })
+  $scope.topicID = TopicsService.getTopicId();
+
+  // MessagesService.getMessages()
+  // .then((messages) => {
+  //   $scope.messages = messages;
+  //   console.log($scope.messages,"yippeee")
+  // })
 
   
   $scope.addMessages = function() {
@@ -20,9 +23,11 @@ angular.module('myApp')
 
     MessagesService.addMessages(newMessage)
     .then((messages) => {
-      console.log("handling promise and controller", messages);
-      $scope.messages = messages.data
+      console.log("handling promise and controller",$scope.messages);
+      $scope.messages = [...$scope.messages, messages.data]
+      console.log("part 2", $scope.messages);
     });
   }
+
 
 }]);

@@ -17,7 +17,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     })
     .when('/message',{
         templateUrl: '../message.html',
-        controller: 'MessageController'
+        controller: 'TopicController'
     })
     .when('/user',{
         templateUrl: '../user.html',
